@@ -1,4 +1,14 @@
 #################
+## LATEX
+#################
+documentatie.pdf
+documentatie.synctex.gz
+*.aux
+*.log
+*.out
+*.toc
+
+#################
 ## Eclipse
 #################
 
