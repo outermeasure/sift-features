@@ -9,6 +9,13 @@ documentatie.synctex.gz
 *.toc
 
 #################
+## Build
+#################
+binaries/
+build/vc2010/
+libraries/
+
+#################
 ## Eclipse
 #################
 

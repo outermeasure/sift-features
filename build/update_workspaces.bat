@@ -1,0 +1,1 @@
+..\tools\premake4 --file=premake4.lua --destination="vc2010" vs2010
