@@ -54,11 +54,11 @@ project "sift-features"
 			-- JasPer Project is an open-source initiative to provide a free software-based reference implementation of the codec specified in the JPEG-2000 Part-1 standard
 			"libjasperd",
 
-			"opencv_core244d",
-			"opencv_imgproc244d",
-			"opencv_highgui244d",
-			"opencv_ml244d",
-			"opencv_video244d",
+			"opencv_core245d",
+			"opencv_imgproc245d",
+			"opencv_highgui245d",
+			"opencv_ml245d",
+			"opencv_video245d",
 			"zlibd",
 
 			"comctl32"
@@ -74,11 +74,11 @@ project "sift-features"
 			"libtiff",
 			"IlmImf",
 			"libjasper",
-			"opencv_core244",
-			"opencv_imgproc244",
-			"opencv_highgui244",
-			"opencv_ml244",
-			"opencv_video244",
+			"opencv_core245",
+			"opencv_imgproc245",
+			"opencv_highgui245",
+			"opencv_ml245",
+			"opencv_video245",
 			"zlib",
 			"comctl32"
 		}
