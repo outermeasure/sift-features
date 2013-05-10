@@ -25,7 +25,7 @@ project "sift-features"
 	}
 	
 	includedirs{
-		rootdir.."/source/include",
+		rootdir.."/sources/include",
 		libraries_dir.."/include"
 	}
 	
@@ -38,30 +38,30 @@ project "sift-features"
 		"StaticRuntime"
 	}
 	
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	configuration "Debug"
 		debugdir (rootdir.."/binaries")
 		defines { "DEBUG" }
 		targetname "siftd"
 		flags {"Symbols"} -- enable debug information
 		links{
-			"libjpegd",
-			"libpngd",
-			"libtiffd",
-
-			-- a library that reads and writes OpenEXR images
-			"IlmImfd",
-
-			-- JasPer Project is an open-source initiative to provide a free software-based reference implementation of the codec specified in the JPEG-2000 Part-1 standard
-			"libjasperd",
-
-			"opencv_core245d",
-			"opencv_imgproc245d",
-			"opencv_highgui245d",
-			"opencv_ml245d",
-			"opencv_video245d",
-			"zlibd",
-
-			"comctl32"
+			"opencv_calib3d231d",
+			"opencv_contrib231d",
+			"opencv_core231d",
+			"opencv_features2d231d",
+			"opencv_flann231d",
+			"opencv_gpu231d",
+			"opencv_haartraining_engined",
+			"opencv_highgui231d",
+			"opencv_imgproc231d",
+			"opencv_legacy231d",
+			"opencv_ml231d",
+			"opencv_objdetect231d",
+			"opencv_ts231d",
+			"opencv_video231d"
 		}
 
 	configuration "Release"
@@ -69,16 +69,18 @@ project "sift-features"
 		defines { "NDEBUG" }
 		targetname "sift"
 		links{
-			"libjpeg",
-			"libpng",
-			"libtiff",
-			"IlmImf",
-			"libjasper",
-			"opencv_core245",
-			"opencv_imgproc245",
-			"opencv_highgui245",
-			"opencv_ml245",
-			"opencv_video245",
-			"zlib",
-			"comctl32"
+			"opencv_calib3d231",
+			"opencv_contrib231",
+			"opencv_core231",
+			"opencv_features2d231",
+			"opencv_flann231",
+			"opencv_gpu231",
+			"opencv_haartraining_engine",
+			"opencv_highgui231",
+			"opencv_imgproc231",
+			"opencv_legacy231",
+			"opencv_ml231",
+			"opencv_objdetect231",
+			"opencv_ts231",
+			"opencv_video231"
 		}
