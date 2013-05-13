@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdio.h>
+
+#include "Timer.h"
 #include "Utils.h"
 
 template< int O, int S >
@@ -17,22 +19,19 @@ public:
 	}
 
 	~ScaleSpace(){
-		for( int octave = 0; octave < octaves; ++octave ){
-			for( int scale = 0; scale < scales; ++scale ){
-				//cvReleaseImage( &images[octave][scale] );
-			}
-		}
 	}
 
 	int GetOctaveCount(){ return O; }
 	int GetScaleCount(){ return S; }
 
 	void Build( double sigmaConstant = 1.41421356237 ){
+		timer.Reset();
 
 		IplImage* imgGray = ConstructGrayscaleCopy( source );
-
 		ConstructOctaves( imgGray );
 		ConstructScales( sigmaConstant );
+
+		LogTimedTask( "Built Scale Space", timer.Count() );
 
 		cvReleaseImage( &imgGray );
 	}
@@ -67,7 +66,7 @@ public:
 
 		// scale the rest of the octaves DOWN
 		float imageScale = 1.0f;
-		for( int octave = 1; octave < O; ++octave ){
+		for( int octave = 1; octave < octaves; ++octave ){
 			images[octave][0] = cvCreateImage( cvSize( (int)(source->width * imageScale), (int)(source->height * imageScale) ), IPL_DEPTH_32F, 1 );
 			cvPyrDown( images[octave-1][0], images[octave][0] );
 			imageScale /= 2.0;
@@ -75,9 +74,9 @@ public:
 	}
 
 	void ConstructScales( double sigmaConstant ){
-		for( int octave = 0; octave < O; ++octave ){
+		for( int octave = 0; octave < octaves; ++octave ){
 			double sigma = 1.0f; //pow(2.0, (double)octave);
-			for( int scale = 1; scale < S; ++scale ){
+			for( int scale = 1; scale < scales; ++scale ){
 				sigmaValues[octave][scale] = sigma;
 				images[octave][scale] = cvCreateImage( cvGetSize(images[octave][0]), IPL_DEPTH_32F, 1 );
 				cvSmooth(images[octave][scale-1], images[octave][scale], CV_GAUSSIAN, 0, 0, sigma);
@@ -86,18 +85,13 @@ public:
 		}
 	}
 
-	void DumpImages( const char* filenameTemplate ){
-		char buffer[64];
-
-		for( int octave = 0; octave < O; ++octave ){
-			for( int scale = 0; scale < S; ++scale ){
-				sprintf( buffer, filenameTemplate, octave, scale );
-				SaveFloatingPointImage( buffer, images[octave][scale] );
-			}
-		}
+	void DumpImages( const std::string& filenameTemplate ){
+		timer.Reset();
+		SaveImageBatch( filenameTemplate.c_str(), octaves, scales, images );
+		LogTimedTask( "Dumped images", timer.Count() );
 	}
 
-	void DumpSigmas( const char* filename ){
+	void DumpSigmas( const std::string& filename ){
 		ofstream fout(filename);
 		for( int octave = 0; octave < O; ++octave ){
 			for( int scale = 1; scale < S; ++scale ){
@@ -115,9 +109,10 @@ public:
 	}
 
 private:
-	IplImage* images[O][S];
+	Timer timer;
+	IplImage* images[octaves][scales];
 	IplImage* source;
-	double sigmaValues[O][S];
+	double sigmaValues[octaves][scales];
 };
 
 template <typename T>

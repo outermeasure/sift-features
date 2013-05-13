@@ -17,25 +17,31 @@ public:
 	};
 
 	void Build(){
+		timer.Reset();
+
 		for( int x = 0; x < size_x; ++x ){
 			for( int y = 0; y < size_y; ++y ){
 				images[x][y] = cvCreateImage(cvGetSize(sourceScaleSpace.GetImage(x, 0)), 32, 1);
 				cvSub(sourceScaleSpace.GetImage(x, y), sourceScaleSpace.GetImage(x, y+1), images[x][y]);
 			}
 		}
+
+		LogTimedTask( "Built Difference of Gaussians", timer.Count() );
+
+	}
+
+	IplImage* GetImage( int x, int y ) const{
+		return images[x][y];
 	}
 
 	void DumpImages( const std::string& filenameformat ){
-		char buffer[64];
-		for( int x = 0; x < size_x; ++x ){
-			for( int y = 0; y < size_y; ++y ){
-				sprintf( buffer, filenameformat.c_str(), x, y );
-				SaveFloatingPointImage( buffer, images[x][y] );
-			}
-		}
+		timer.Reset();
+		SaveImageBatch( filenameformat.c_str(), size_x, size_y, images );
+		LogTimedTask( "Dumped images", timer.Count() );
 	}
 
 private:
+	Timer timer;
 	IplImage* images[size_x][size_y];
 	S sourceScaleSpace;
 };
