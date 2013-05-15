@@ -4,8 +4,8 @@ template< typename T >
 class MaximaAndMinima{
 public:
 	enum{
-		size_x = T::size_x,
-		size_y = T::size_y - 2
+		size_x = (int)T::Sizes::size_x,
+		size_y = (int)T::Sizes::size_y - 2
 	};
 
 	MaximaAndMinima( const T& source ): source(source) {
