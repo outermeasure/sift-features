@@ -23,13 +23,14 @@ public:
 				for( int x = 1; x < imageSize.height-1; ++x ){
 					for( int y = 1; y < imageSize.width-1; ++y ){
 						double elem, _max, _min;
-						elem = _max = _min = cvGetReal2D( source.GetImage( octave, scale ), x, y );
-
-						if( elem < 0.01 ) continue;
-
+						elem = cvGetReal2D( source.GetImage( octave, scale ), x, y );
+						_max = -1;
+						_min = 2;
 						for( int dscale = -1; dscale <= 1; ++dscale ){
 							for( int dx = -1; dx <= 1; ++dx ){
 								for( int dy = -1; dy <= 1; ++dy ){
+									if( dscale == 0 && dx == 0 && dy == 0 ) continue;
+
 									double val = cvGetReal2D( source.GetImage( octave, scale + dscale ), x + dx, y + dy );
 									if( val > _max ) _max = val;
 									if( val < _min ) _min = val;
@@ -37,7 +38,7 @@ public:
 							}
 						}
 
-						if( elem == _max || elem == _min ){
+						if( elem > _max || elem < _min ){
 							cvSetReal2D( images[octave][scale-1], x, y, 1.0f );
 						}
 					}
