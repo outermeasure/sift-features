@@ -17,6 +17,7 @@ public:
 	};
 
 	void Build(){
+		LogMessage("Building Difference of Gaussians");
 		timer.Reset();
 
 		for( int x = 0; x < (int)Sizes::size_x; ++x ){
@@ -26,7 +27,7 @@ public:
 			}
 		}
 
-		LogTimedTask( "Built Difference of Gaussians", timer.Count() );
+		LogTimedTask( "Done building", timer.Count() );
 
 	}
 

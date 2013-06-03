@@ -26,12 +26,12 @@ public:
 
 	void Build( double sigmaConstant = 1.41421356237 ){
 		timer.Reset();
-
+		LogMessage( "Building Scale Space" );
 		IplImage* imgGray = ConstructGrayscaleCopy( source );
 		ConstructOctaves( imgGray );
 		ConstructScales( sigmaConstant );
 
-		LogTimedTask( "Built Scale Space", timer.Count() );
+		LogTimedTask( "Done Building", timer.Count() );
 
 		cvReleaseImage( &imgGray );
 	}
@@ -101,11 +101,15 @@ public:
 		}
 	}
 
-	IplImage* GetImage( int octave, int scale ){
+	const IplImage* GetImage( int octave, int scale ) const{
 		if( octave < O && scale < S ){
 			return images[octave][scale];
 		}
 		return nullptr;
+	}
+
+	double GetSigma( int octave, int scale ) const {
+		return sigmaValues[octave][scale];
 	}
 
 private:

@@ -5,7 +5,7 @@ class MaximaAndMinima{
 public:
 	enum{
 		size_x = (int)T::Sizes::size_x,
-		size_y = (int)T::Sizes::size_y - 2
+		size_y = (int)T::Sizes::size_y - 3
 	};
 
 	MaximaAndMinima( const T& source ): source(source) {
@@ -13,7 +13,7 @@ public:
 
 	void Build(){
 		timer.Reset();
-
+		LogMessage( "Building Maxima and Minima" );
 		for( int octave = 0; octave < size_x; ++octave ){
 			for( int scale = 1; scale <= size_y; ++ scale ){
 
@@ -46,8 +46,12 @@ public:
 			}
 		}
 
-		LogTimedTask( "Built Maxima and Minima", timer.Count() );
+		LogTimedTask( "Done building", timer.Count() );
 
+	}
+
+	IplImage* GetImage( int octave, int scale ) const {
+		return images[octave][scale];
 	}
 
 	void DumpImages( const std::string& filenameTemplate ){

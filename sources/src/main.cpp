@@ -2,11 +2,14 @@
 #include <string>
 #include <stdio.h>
 
+#undef FLANN_DEPRECATED
+
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 
 #include "DifferenceOfGaussians.h"
 #include "MaximaAndMinima.h"
+#include "Orientations.h"
 #include "ScaleSpace.h"
 #include "Timer.h"
 #include "Utils.h"
@@ -50,10 +53,12 @@ int main( int argc, char* argv[]){
 
 	// Part3: Locate Maxima and Minima
 	MaximaAndMinima<decltype(dog)> mam(dog);
-	mam.Build();
-	mam.DumpImages( outputPath + "MaM_image_%d_%d.png" );
+	//mam.Build();
+	//mam.DumpImages( outputPath + "MaM_image_%d_%d.png" );
 
 	// Part4: Assign Orientations
+	Orientations<decltype(scaleSpace), decltype(mam)> orientations(scaleSpace, mam);
+	orientations.Build();
 
 	// Part5: Extract Keypoint Descriptors
 
