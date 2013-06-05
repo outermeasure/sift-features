@@ -80,3 +80,11 @@ void LogTimedTask( const std::string& msg, int milis ){
 	}
 	LogMessage( sstream.str() );
 }
+
+template<typename T>
+inline T clamp(T value, T low, T high)
+{
+	if (value < low ) return low;
+	else if (value > high) return high;
+	else return value;
+}

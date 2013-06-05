@@ -5,10 +5,11 @@ class MaximaAndMinima{
 public:
 	enum{
 		size_x = (int)T::Sizes::size_x,
-		size_y = (int)T::Sizes::size_y - 3
+		size_y = (int)T::Sizes::size_y - 2
 	};
 
 	MaximaAndMinima( const T& source ): source(source) {
+		memset(images, 0, sizeof(images));
 	}
 
 	void Build(){
@@ -20,6 +21,7 @@ public:
 				// for every pixel
 				CvSize imageSize = cvGetSize(source.GetImage(octave, scale));
 				images[octave][scale-1] = cvCreateImage( imageSize, 32, 1 );
+				cvZero(images[octave][scale-1]);
 				for( int x = 1; x < imageSize.height-1; ++x ){
 					for( int y = 1; y < imageSize.width-1; ++y ){
 						double elem, _max, _min;

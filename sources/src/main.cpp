@@ -36,7 +36,7 @@ int main( int argc, char* argv[]){
 		outputPath = "temp/";
 	}
 
-	sourceImage = cvLoadImage( "images/melon_cat.png" );
+	sourceImage = cvLoadImage( imageSourcePath.c_str() );
 
 	LogMessage( string("Building SIFT for ") + imageSourcePath + "." );
 
@@ -53,8 +53,8 @@ int main( int argc, char* argv[]){
 
 	// Part3: Locate Maxima and Minima
 	MaximaAndMinima<decltype(dog)> mam(dog);
-	//mam.Build();
-	//mam.DumpImages( outputPath + "MaM_image_%d_%d.png" );
+	mam.Build();
+	mam.DumpImages( outputPath + "MaM_image_%d_%d.png" );
 
 	// Part4: Assign Orientations
 	Orientations<decltype(scaleSpace), decltype(mam)> orientations(scaleSpace, mam);
