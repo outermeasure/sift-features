@@ -1,0 +1,32 @@
+Release Libraries
+"opencv_calib3d231",
+"opencv_contrib231",
+"opencv_core231",
+"opencv_features2d231",
+"opencv_flann231",
+"opencv_gpu231",
+"opencv_haartraining_engine",
+"opencv_highgui231",
+"opencv_imgproc231",
+"opencv_legacy231",
+"opencv_ml231",
+"opencv_objdetect231",
+"opencv_ts231",
+"opencv_video231"
+
+Debug Libraries
+"opencv_calib3d231",
+"opencv_contrib231",
+"opencv_core231",
+"opencv_features2d231",
+"opencv_flann231",
+"opencv_gpu231",
+"opencv_haartraining_engine",
+"opencv_highgui231",
+"opencv_imgproc231",
+"opencv_legacy231",
+"opencv_ml231",
+"opencv_objdetect231",
+"opencv_ts231",
+"opencv_video231"
+
